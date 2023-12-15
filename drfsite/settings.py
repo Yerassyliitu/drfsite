@@ -133,7 +133,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
-LOGIN_REDIRECT_URL = '/test/restaurant/create'
+LOGIN_REDIRECT_URL = 'restaurant/create'
 
 # Base url to serve media files
 MEDIA_URL = '/media/'
