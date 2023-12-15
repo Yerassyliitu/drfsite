@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kbk!lwy2q&uuce=_$g1msg1psc+(eoms@u(9xl6qwolt53q1j(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOST = ['*', 'drfsite-production.up.railway.app']
+ALLOWED_HOSTS = ('*', 'drfsite-production.up.railway.app')
 
 AUTH_USER_MODEL = "testapp.User"
 # Application definition
