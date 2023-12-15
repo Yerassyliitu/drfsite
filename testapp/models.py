@@ -94,6 +94,7 @@ class Restaurant(models.Model):
 
     period_of_credit = models.ManyToManyField(PeriodOfCredit, default=None, verbose_name='Срок кредита')
 
+    restaurant_image = models.ManyToManyField('RestaurantImage', blank=True, default=None, verbose_name='Фотографии')
     class Meta:
         verbose_name = 'Ресторан'
         verbose_name_plural = 'Рестораны'

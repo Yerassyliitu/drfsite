@@ -90,22 +90,22 @@ class RestaurantListView(APIView):
 
 class RestaurantEditView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'testapp/add_partner.html'
+    template_name = 'testapp/edit_partner.html'
 
     def get(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
+        images = RestaurantImage.objects.filter(post=restaurant)
         form = RestaurantForm(instance=restaurant)
-        return Response({'restaurant': restaurant, 'form': form})
+        return Response({'restaurant': restaurant, 'images': images, 'form': form})
 
     def post(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
         form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
             restaurant = form.save()
-            return redirect('restaurant_list')
+            return redirect('restaurant_edit', pk=restaurant.pk)
         else:
-            return render(request, self.template_name, {'form': form, 'success': False})
-
+            return render(request, self.template_name, {'form': form, 'success': False, 'restaurant': restaurant})
 
 
 class RestaurantDeleteView(DeleteView):

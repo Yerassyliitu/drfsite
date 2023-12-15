@@ -259,7 +259,7 @@
                     {{ restaurant.sum_of_credit.all|join:", " }}
                 </td>
                 <td>
-                    <div class="relative inline-block text-left" onclick="toggleDropdown()">
+                     <div class="relative inline-block text-left" onclick="toggleDropdown('{{ restaurant.id }}')">
                         <svg class="hover:bg-secondary  w-7 h-7 p-1 rounded-full cursor-pointer"
                              xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                              fill="none">
@@ -274,11 +274,13 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <div class=" absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ">
-                            <div id="dropdownMenu" class="py-1 hidden">
-                                <a href="#"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Редактировать</a>
-
+                        <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ">
+                           <div id="dropdownMenu{{ restaurant.id }}" class="py-1 hidden">
+                                <form method="post" action="{% url 'restaurant_edit' pk=restaurant.id %}">
+                                    {% csrf_token %}
+                                <button type="submit"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Редактировать</button>
+                                </form>
                                 <form method="post" action="{% url 'restaurant_delete' pk=restaurant.id %}">
                                     {% csrf_token %}
                                     <button type="submit"
@@ -309,8 +311,8 @@
         }
     });
 
-    function toggleDropdown() {
-        var dropdownMenu = document.getElementById('dropdownMenu');
+    function toggleDropdown(restaurantId) {
+        var dropdownMenu = document.getElementById('dropdownMenu' + restaurantId);
         dropdownMenu.classList.toggle('hidden');
     }
 

@@ -10,22 +10,31 @@ class RestaurantImageForm(ModelForm):
         fields = ['image']
 
 
+
+
+
 class RestaurantForm(ModelForm):
+    images = forms.FileField(
+        widget=forms.ClearableFileInput(),
+        required=False,
+        label='Добавить фотографии',
+    )
+
     class Meta:
         model = Restaurant
         fields = ['logo', 'title', 'tags1', 'tags2', 'description', 'location', 'average',
                   'kitchen', 'phone_number', 'work_days_1',
-                  'work_hours_1', 'work_days_2', 'work_hours_2', 'menu']
+                  'work_hours_1', 'work_days_2', 'work_hours_2', 'menu', 'images']
 
     tags1 = forms.ModelChoiceField(
-        queryset=Tag.objects.all(),  # Замените Tag на вашу модель тегов
+        queryset=Tag.objects.all(),
         widget=forms.Select,
         required=False,
         label='Tags 1',
     )
 
     tags2 = forms.ModelChoiceField(
-        queryset=Tag.objects.all(),  # Замените Tag на вашу модель тегов
+        queryset=Tag.objects.all(),
         widget=forms.Select,
         required=False,
         label='Tags 2',
@@ -54,19 +63,18 @@ class RestaurantForm(ModelForm):
         if self.cleaned_data.get('tags2'):
             restaurant.tags.add(self.cleaned_data['tags2'])
 
-        # Сохранение связанных данных
         for sum_of_credit in self.cleaned_data['sum_of_credit']:
             restaurant.sum_of_credit.add(sum_of_credit)
 
         for period_of_credit in self.cleaned_data['period_of_credit']:
             restaurant.period_of_credit.add(period_of_credit)
 
-        # images_without_post = RestaurantImage.objects.filter(post__isnull=True)
-        # for image in images_without_post:
-        #     image.post = restaurant
-        #     image.save()
+        image = self.cleaned_data['images']
+        if image:
+            RestaurantImage.objects.create(post=restaurant, image=image)
 
         return restaurant
+
 
 
 class MyAuthenticationForm(AuthenticationForm):
