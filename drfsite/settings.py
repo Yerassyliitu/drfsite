@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ('drfsite-production.up.railway.app', 'https://drfsite-production.up.railway.app')
 
+CSRF_TRUSTED_ORIGINS = ['https://drfsite-production.up.railway.app', 'drfsite-production.up.railway.app', 'https://*.127.0.0.1']
 AUTH_USER_MODEL = "testapp.User"
 # Application definition
 
