@@ -52,6 +52,7 @@
         </div>
         <!--form-->
         <form method="post" enctype="multipart/form-data" class="mt-10 flex flex-col justify-between items-center bg-white p-4 rounded-2xl gap-3 mb-10">
+            {% csrf_token %}
             <h3 class="font-extrabold text-2xl">Вход</h3>
             <input name="{{ form.username.name }}"
                 class=" border text-primary font-medium w-full rounded-md py-2 border-primary text-center outline-primary"
@@ -59,7 +60,6 @@
             <input name="{{ form.password.name }}"
                 class=" border text-primary font-medium w-full rounded-md py-2 border-primary text-center outline-primary"
                 placeholder="Password" />
-            {% csrf_token %}
             <button
                 class=" border text-white bg-primary font-medium w-full rounded-md py-2 border-primary hover:bg-white hover:text-primary transition duration-500 ease-in-out">
                 Войти
